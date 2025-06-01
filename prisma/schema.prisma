@@ -1,0 +1,55 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER 
+  ADMIN
+}
+
+enum TransactionStatus {
+  PENDING
+  PAID
+  SHIPPED
+  COMPLETED
+  CANCELLED
+}
+
+model User {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  email     String   @unique
+  name      String?
+  password  String
+  phone     String?
+  role      Role     @default(USER)
+  // Jangan pakai relasi langsung, simpan array id atau relasi manual
+  // transactions Transaction[]  // Hapus dulu ini
+}
+
+model Product {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  description String
+  price       Int
+  image       String
+  stock       Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime // handle update manual di aplikasi
+  // transactions Transaction[] // Hapus dulu ini
+}
+
+model Transaction {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId     String   @db.ObjectId
+  productId  String   @db.ObjectId
+  quantity   Int
+  totalPrice Int
+  status     TransactionStatus @default(PENDING)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime
+}
