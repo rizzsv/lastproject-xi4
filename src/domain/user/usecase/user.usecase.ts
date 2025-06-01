@@ -90,3 +90,35 @@ export class CreateUser {
     }
 }
 
+// --- Update User ---
+export class UpdateUser {
+    constructor (private userRepository: IUserRepository) {}
+
+    async execute (id: string, data: {
+        email?: string,
+        name?: string,
+        password?: string,
+        phone?: string,
+
+    }) {
+        const user = await this.userRepository.findById(id);
+        if (!user) {
+            throw new Error("User not found");
+        }
+    }
+}
+
+// --- Delete User ---
+export class DeleteUser {
+    constructor (private userRepository: IUserRepository) {}
+
+    async execute (id: string) {
+        const user = await this.userRepository.findById(id);
+        if (!user) {
+            throw new Error("User not found");
+        }
+
+        await this.userRepository.delete(id);
+    }
+}
+

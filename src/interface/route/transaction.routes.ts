@@ -4,7 +4,7 @@ import { TransactionController } from '../controllers/transactionController';
 
 const router = express.Router();
 
-router.get('/', TransactionController.findAll);
+router.get('/GetAll', TransactionController.findAll);
 router.get('/:id', TransactionController.findById);
 router.post('/', TransactionController.create);
 router.put('/:id', TransactionController.updateStatus);
