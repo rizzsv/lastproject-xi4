@@ -1,10 +1,10 @@
-import { Transaction } from "@prisma/client";
+import { Transaction } from "../entities/Transaction";
 
 
 export interface ITransactionRepository {
   create(transaction: Transaction): Promise<Transaction>;
   findAll(): Promise<Transaction[]>;
   findById(id: string): Promise<Transaction | null>;
-  updateStatus(id: string, status: string): Promise<Transaction>;
+  update(id: string, data: Partial<Transaction>): Promise<Transaction | null>;
   delete(id: string): Promise<void>;
 }

@@ -11,12 +11,3 @@ export interface IUserRepository {
 }
 
 
-
-export interface ITransactionRepository {
-  create(transaction: Transaction): Promise<Transaction>;
-  findById(id: string): Promise<Transaction | null>;
-  findByUserId(userId: string): Promise<Transaction[]>;
-  updateStatus(id: string, status: string): Promise<Transaction>;
-  delete(id: string): Promise<void>;
-}
-
